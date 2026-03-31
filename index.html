@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>RePanel</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: radial-gradient(circle at center, #020617, #000);
+      color: #0ff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      text-align: center;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 25px #0ff44f, 0 0 60px #0ff22f inset;
+      backdrop-filter: blur(10px);
+    }
+
+    .lock-icon {
+      width: 100px;
+      margin-bottom: 20px;
+      filter: drop-shadow(0 0 10px #0ff);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); filter: drop-shadow(0 0 5px #0ff); }
+      50% { transform: scale(1.1); filter: drop-shadow(0 0 20px #0ff); }
+      100% { transform: scale(1); filter: drop-shadow(0 0 5px #0ff); }
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      text-shadow: 0 0 10px #0ff;
+    }
+
+    input {
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #0ff;
+      background: transparent;
+      color: #0ff;
+      outline: none;
+      width: 220px;
+      text-align: center;
+      font-size: 16px;
+      box-shadow: 0 0 10px #0ff inset;
+    }
+
+    input::placeholder {
+      color: #0ff88a;
+    }
+
+    .panel {
+      display: none;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    button {
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #0ff;
+      background: transparent;
+      color: #0ff;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 0 10px #0ff;
+    }
+
+    button:hover {
+      background: #0ff;
+      color: black;
+      box-shadow: 0 0 20px #0ff;
+    }
+
+    .error {
+      color: #ff4d4d;
+      margin-top: 10px;
+      text-shadow: 0 0 8px red;
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Tela bloqueada -->
+  <div class="container" id="lockScreen">
+    <img class="lock-icon" src="https://img.icons8.com/ios7/512/FFFFFF/lock.png">
+    <h2>RePanel</h2>
+    <input type="password" id="password" placeholder="Digite o código">
+    <div class="error" id="errorMsg">Código incorreto</div>
+  </div>
+
+  <!-- Painel -->
+  <div class="container panel" id="mainPanel">
+    <h2>🔓 Acesso Liberado</h2>
+    <button>Botão 1</button>
+    <button>Botão 2</button>
+    <button>Botão 3</button>
+  </div>
+
+  <script>
+    const input = document.getElementById("password");
+    const error = document.getElementById("errorMsg");
+
+    input.addEventListener("keypress", function(e) {
+      if (e.key === "Enter") {
+        if (input.value === "2560") {
+          document.getElementById("lockScreen").style.display = "none";
+          document.getElementById("mainPanel").style.display = "flex";
+        } else {
+          error.style.display = "block";
+          input.value = "";
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>
