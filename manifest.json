@@ -2,11 +2,11 @@
   "background_color": "#ffffff",
   "dir": "ltr",
   "display": "standalone",
-  "name": "RePanel",
+  "name": "Cydia",
   "orientation": "any",
   "scope": "/",
-  "short_name": "RePanel",
-  "start_url": "/RePanel",
+  "short_name": "Cydia",
+  "start_url": "/Cydia",
   "theme_color": "#ffffff",
   "icons": [
     {
