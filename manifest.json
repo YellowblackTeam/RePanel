@@ -6,7 +6,7 @@
   "orientation": "any",
   "scope": "/",
   "short_name": "Cydia",
-  "start_url": "/Cydia",
+  "start_url": "/RePanel",
   "theme_color": "#ffffff",
   "icons": [
     {
