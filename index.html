@@ -2,6 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RePanel</title>
 
 <style>
@@ -12,42 +13,43 @@ body {
     color: white;
 }
 
-.container {
-    display: flex;
-    height: 100vh;
-}
-
-.sidebar {
-    width: 250px;
-    background: #1e293b;
+/* Header */
+.header {
     padding: 20px;
-    box-shadow: 2px 0 10px rgba(0,0,0,0.5);
-}
-
-.sidebar h1 {
     font-size: 22px;
-    margin-bottom: 20px;
+    font-weight: bold;
+    text-align: center;
+    background: #1e293b;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
 }
 
+/* Lista */
+.list {
+    padding: 15px;
+}
+
+/* Item */
 .item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #334155;
-    padding: 12px;
-    border-radius: 10px;
-    margin-bottom: 10px;
+    background: #1e293b;
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 12px;
     transition: 0.2s;
 }
 
-.item:hover {
-    background: #475569;
+.item:active {
+    transform: scale(0.98);
+    background: #334155;
 }
 
+/* Switch */
 .switch {
     position: relative;
-    width: 45px;
-    height: 22px;
+    width: 50px;
+    height: 26px;
 }
 
 .switch input {
@@ -58,7 +60,6 @@ body {
 
 .slider {
     position: absolute;
-    cursor: pointer;
     top: 0;
     left: 0;
     right: 0;
@@ -69,10 +70,10 @@ body {
 }
 
 .slider:before {
-    position: absolute;
     content: "";
-    height: 16px;
-    width: 16px;
+    position: absolute;
+    height: 20px;
+    width: 20px;
     left: 3px;
     bottom: 3px;
     background: white;
@@ -85,65 +86,62 @@ input:checked + .slider {
 }
 
 input:checked + .slider:before {
-    transform: translateX(23px);
+    transform: translateX(24px);
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
-    <div class="sidebar">
-        <h1>RePanel</h1>
+<div class="header">RePanel</div>
 
-        <div class="item">
-            <span>Modo Noturno</span>
-            <label class="switch">
-                <input type="checkbox" id="switch1">
-                <span class="slider"></span>
-            </label>
-        </div>
+<div class="list">
 
-        <div class="item">
-            <span>Notificações</span>
-            <label class="switch">
-                <input type="checkbox" id="switch2">
-                <span class="slider"></span>
-            </label>
-        </div>
-
-        <div class="item">
-            <span>Som</span>
-            <label class="switch">
-                <input type="checkbox" id="switch3">
-                <span class="slider"></span>
-            </label>
-        </div>
-
-        <div class="item">
-            <span>Auto Save</span>
-            <label class="switch">
-                <input type="checkbox" id="switch4">
-                <span class="slider"></span>
-            </label>
-        </div>
-
-        <div class="item">
-            <span>Modo Gamer</span>
-            <label class="switch">
-                <input type="checkbox" id="switch5">
-                <span class="slider"></span>
-            </label>
-        </div>
-
+    <div class="item">
+        <span>Modo Noturno</span>
+        <label class="switch">
+            <input type="checkbox" id="switch1">
+            <span class="slider"></span>
+        </label>
     </div>
+
+    <div class="item">
+        <span>Notificações</span>
+        <label class="switch">
+            <input type="checkbox" id="switch2">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <div class="item">
+        <span>Som</span>
+        <label class="switch">
+            <input type="checkbox" id="switch3">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <div class="item">
+        <span>Auto Save</span>
+        <label class="switch">
+            <input type="checkbox" id="switch4">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <div class="item">
+        <span>Modo Gamer</span>
+        <label class="switch">
+            <input type="checkbox" id="switch5">
+            <span class="slider"></span>
+        </label>
+    </div>
+
 </div>
 
 <script>
-// lista de switches
 const switches = ["switch1","switch2","switch3","switch4","switch5"];
 
-// carregar estado salvo
 switches.forEach(id => {
     const el = document.getElementById(id);
     const saved = localStorage.getItem(id);
@@ -152,7 +150,6 @@ switches.forEach(id => {
         el.checked = true;
     }
 
-    // salvar quando mudar
     el.addEventListener("change", () => {
         localStorage.setItem(id, el.checked);
     });
