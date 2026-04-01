@@ -2,119 +2,160 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>RePanel</title>
 
 <style>
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
-  background: #020617;
-  color: white;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0f172a;
+    color: white;
 }
 
-/* Tela cheia estilo app */
-.screen {
-  height: 100vh;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 25px;
+.container {
+    display: flex;
+    height: 100vh;
 }
 
-/* Ícone */
-.lock {
-  width: 110px;
-  margin: 0 auto 30px;
-  filter: drop-shadow(0 0 15px rgba(0,255,255,0.6));
+.sidebar {
+    width: 250px;
+    background: #1e293b;
+    padding: 20px;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.5);
 }
 
-/* Título */
-.title {
-  text-align: center;
-  font-size: 24px;
-  margin-bottom: 25px;
-  letter-spacing: 1px;
+.sidebar h1 {
+    font-size: 22px;
+    margin-bottom: 20px;
 }
 
-/* Input grande (mobile) */
-input {
-  width: 100%;
-  padding: 18px;
-  font-size: 18px;
-  border-radius: 14px;
-  border: none;
-  outline: none;
-  text-align: center;
-  background: rgba(255,255,255,0.05);
-  color: white;
+.item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #334155;
+    padding: 12px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    transition: 0.2s;
 }
 
-/* Botões estilo app */
-button {
-  width: 100%;
-  padding: 18px;
-  border-radius: 14px;
-  border: none;
-  font-size: 16px;
-  margin-top: 12px;
-  background: linear-gradient(135deg, #22d3ee, #3b82f6);
-  color: white;
+.item:hover {
+    background: #475569;
 }
 
-/* Press effect */
-button:active {
-  transform: scale(0.96);
+.switch {
+    position: relative;
+    width: 45px;
+    height: 22px;
 }
 
-/* Painel escondido */
-.panel {
-  display: none;
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
 }
 
-/* Erro */
-.error {
-  text-align: center;
-  margin-top: 12px;
-  color: #ff6b6b;
-  display: none;
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #64748b;
+    border-radius: 20px;
+    transition: 0.3s;
 }
 
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 3px;
+    bottom: 3px;
+    background: white;
+    border-radius: 50%;
+    transition: 0.3s;
+}
+
+input:checked + .slider {
+    background: #22c55e;
+}
+
+input:checked + .slider:before {
+    transform: translateX(23px);
+}
 </style>
 </head>
 
 <body>
 
-<!-- Lock -->
-<div class="screen" id="lockScreen">
-  <img class="lock" src="https://img.icons8.com/ios7/512/FFFFFF/lock.png">
-  <div class="title">RePanel</div>
-  
-  <input type="password" id="password" placeholder="Código de acesso">
-  <div class="error" id="errorMsg">Código incorreto</div>
-</div>
+<div class="container">
+    <div class="sidebar">
+        <h1>RePanel</h1>
 
-<!-- Painel -->
-<div class="screen panel" id="panel">
-  <div class="title">Bem-vindo</div>
-  <button>Botão 1</button>
-  <button>Botão 2</button>
-  <button>Botão 3</button>
+        <div class="item">
+            <span>Modo Noturno</span>
+            <label class="switch">
+                <input type="checkbox" id="switch1">
+                <span class="slider"></span>
+            </label>
+        </div>
+
+        <div class="item">
+            <span>Notificações</span>
+            <label class="switch">
+                <input type="checkbox" id="switch2">
+                <span class="slider"></span>
+            </label>
+        </div>
+
+        <div class="item">
+            <span>Som</span>
+            <label class="switch">
+                <input type="checkbox" id="switch3">
+                <span class="slider"></span>
+            </label>
+        </div>
+
+        <div class="item">
+            <span>Auto Save</span>
+            <label class="switch">
+                <input type="checkbox" id="switch4">
+                <span class="slider"></span>
+            </label>
+        </div>
+
+        <div class="item">
+            <span>Modo Gamer</span>
+            <label class="switch">
+                <input type="checkbox" id="switch5">
+                <span class="slider"></span>
+            </label>
+        </div>
+
+    </div>
 </div>
 
 <script>
-const input = document.getElementById("password");
-const error = document.getElementById("errorMsg");
+// lista de switches
+const switches = ["switch1","switch2","switch3","switch4","switch5"];
 
-input.addEventListener("change", () => {
-  if (input.value === "2560") {
-    document.getElementById("lockScreen").style.display = "none";
-    document.getElementById("panel").style.display = "flex";
-  } else {
-    error.style.display = "block";
-    input.value = "";
-  }
+// carregar estado salvo
+switches.forEach(id => {
+    const el = document.getElementById(id);
+    const saved = localStorage.getItem(id);
+
+    if (saved === "true") {
+        el.checked = true;
+    }
+
+    // salvar quando mudar
+    el.addEventListener("change", () => {
+        localStorage.setItem(id, el.checked);
+    });
 });
 </script>
 
