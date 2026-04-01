@@ -1,0 +1,11 @@
+{
+  "background_color": "#ffffff",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "RePanel",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "RePanel",
+  "start_url": "/RePanel",
+  "theme_color": "#ffffff"
+}
